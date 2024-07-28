@@ -1,0 +1,54 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Set up Firebase config
+      run: |
+        echo "{
+          \"type\": \"$TYPE\",
+          \"project_id\": \"$PROJECT_ID\",
+          \"private_key_id\": \"$PRIVATE_KEY_ID\",
+          \"private_key\": \"$PRIVATE_KEY\",
+          \"client_email\": \"$CLIENT_EMAIL\",
+          \"client_id\": \"$CLIENT_ID\",
+          \"auth_uri\": \"$AUTH_URI\",
+          \"token_uri\": \"$TOKEN_URI\",
+          \"auth_provider_x509_cert_url\": \"$AUTH_PROVIDER_X509_CERT_URL\",
+          \"client_x509_cert_url\": \"$CLIENT_X509_CERT_URL\"
+        }" > firebase-config.json
+      env:
+        TYPE: ${{ secrets.TYPE }}
+        PROJECT_ID: ${{ secrets.PROJECT_ID }}
+        PRIVATE_KEY_ID: ${{ secrets.PRIVATE_KEY_ID }}
+        PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+        CLIENT_EMAIL: ${{ secrets.CLIENT_EMAIL }}
+        CLIENT_ID: ${{ secrets.CLIENT_ID }}
+        AUTH_URI: ${{ secrets.AUTH_URI }}
+        TOKEN_URI: ${{ secrets.TOKEN_URI }}
+        AUTH_PROVIDER_X509_CERT_URL: ${{ secrets.AUTH_PROVIDER_X509_CERT_URL }}
+        CLIENT_X509_CERT_URL: ${{ secrets.CLIENT_X509_CERT_URL }}
+
+    - name: Deploy to hosting service
+      run: |
+        # Comandi per la distribuzione, ad esempio su Heroku, AWS, ecc.

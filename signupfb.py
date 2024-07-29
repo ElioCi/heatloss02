@@ -9,17 +9,17 @@ import os
 import json
 
 firebase_config = {
-    'type': os.getenv('TYPE'),
-    'projectId': os.getenv('PROJECT_ID'),
-    'private_key_id': os.getenv('PRIVATE_KEY_ID'),
-    'private_key': os.getenv("PRIVATE_KEY"),
-    'client_email': os.getenv('CLIENT_EMAIL'),
-    'client_id': os.getenv('CLIENT_ID'),
-    'auth_uri': os.getenv('AUTH_URI'),
-    'token_uri':os.getenv('TOKEN_URI'),
-    'auth_provider_x509_cert_url': os.getenv('AUTH_PROVIDER_X509_CERT_URL'),
-    'client_x509_cert_url': os.getenv('CLIENT_X509_CERT_URL'),
-    'universe_domain': os.getenv('UNIVERSE_DOMAIN')
+    'type': "service_account",
+    'projectId': st.secrets['FIREBASE_PROJECT_ID'],
+    'private_key_id': st.secrets['FIREBASE_PRIVATE_KEY_ID'],
+    'private_key': st.secrets["FIREBASE_PRIVATE_KEY"],
+    'client_email': st.secrets['FIREBASE_CLIENT_EMAIL'],
+    'client_id': st.secrets['FIREBASE_CLIENT_ID'],
+    'auth_uri': st.secrets['FIREBASE_AUTH_URI'],
+    'token_uri':st.secrets['FIREBASE_TOKEN_URI'],
+    'auth_provider_x509_cert_url': st.secrets['FIREBASE_AUTH_PROVIDER_X509_CERT_URL'],
+    'client_x509_cert_url': st.secrets['FIREBASE_CLIENT_X509_CERT_URL'],
+    'universe_domain': "googleapis.com"
 }
 
 cred = credentials.Certificate(firebase_config)

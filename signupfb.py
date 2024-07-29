@@ -10,7 +10,7 @@ import json
 
 firebase_config = {
     'type': "service_account",
-    'projectId': st.secrets['FIREBASE_PROJECT_ID'],
+    'projectId': st.secrets["FIREBASE_PROJECT_ID"],
     'private_key_id': st.secrets['FIREBASE_PRIVATE_KEY_ID'],
     'private_key': st.secrets["FIREBASE_PRIVATE_KEY"],
     'client_email': st.secrets['FIREBASE_CLIENT_EMAIL'],
